@@ -3,11 +3,14 @@ const campoTexto = document.querySelector("#texto-encriptado");
 const campoMensaje = document.querySelector("#campo-mensaje");
 const btnModoOscuro = document.querySelector("#toggle-dark-mode");
 
-// Matriz que almacena las letras del abecedario y sus valores numéricos asociados
+// Matriz con códigos incluyendo ñ
 const matrizCode = [];
 
 // Función para obtener el valor numérico asociado a una letra
 function getValor(letra) {
+  if (letra === "ñ") {
+    return 28; // Valor especial para la letra "ñ"
+  }
   // El valor numérico es la posición de la letra en el abecedario, comenzando desde 27 para 'a'
   return 27 - (letra.charCodeAt(0) - "a".charCodeAt(0));
 }
@@ -23,6 +26,8 @@ function generarMatrizCode() {
 // Función para encriptar el texto del campo de entrada
 function encriptar(fraseSinEncriptar) {
   generarMatrizCode(); // Generar la matriz de código antes de encriptar
+  // Reemplazar "pr" por un valor único temporal
+  fraseSinEncriptar = fraseSinEncriptar.replaceAll("pr", "Ѡ");
   for (let i = 0; i < matrizCode.length; i++) {
     if (fraseSinEncriptar.includes(matrizCode[i][0])) {
       fraseSinEncriptar = fraseSinEncriptar.replaceAll(
@@ -31,6 +36,8 @@ function encriptar(fraseSinEncriptar) {
       );
     }
   }
+  // Restaurar "pr" a su forma original
+  fraseSinEncriptar = fraseSinEncriptar.replaceAll("Ѡ", "pr");
   return fraseSinEncriptar;
 }
 
@@ -38,12 +45,13 @@ function encriptar(fraseSinEncriptar) {
 function desencriptar(fraseEncriptada) {
   generarMatrizCode(); // Generar la matriz de código antes de desencriptar
   for (let i = 0; i < matrizCode.length; i++) {
-    if (fraseEncriptada.includes(matrizCode[i][1])) {
-      fraseEncriptada = fraseEncriptada.replaceAll(
-        String(matrizCode[i][1]),
-        matrizCode[i][0]
-      );
-    }
+    // Reemplazar el valor especial de "ñ" con la letra "ñ"
+    fraseEncriptada = fraseEncriptada.replaceAll("28", "ñ");
+    // Desencriptar el resto del texto
+    fraseEncriptada = fraseEncriptada.replaceAll(
+      String(matrizCode[i][1]),
+      matrizCode[i][0]
+    );
   }
   return fraseEncriptada;
 }
@@ -106,3 +114,6 @@ function alternarModo() {
 
 // EventListener para el botón de alternar modo
 btnModoOscuro.addEventListener("click", alternarModo);
+
+// Inicialización
+generarMatrizCode();
