@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encriptador de Texto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <button id="toggle-dark-mode">Modo Oscuro</button>
+  </header>
+  <main class="main">
+    <section>
+      <textarea name="cuadro-texto" id="texto-encriptado" cols="30" rows="10"
+        placeholder="Ingresa tu texto aquí"></textarea>
+      <article class="btn">
+        <button class="btn-encriptar" onclick="btnEncriptar()">Encriptar</button>
+        <button class="boton-copiar" id="btn-copiar-1">Copiar</button>
+      </article>
+    </section>
+    <section class="campo-mensaje">
+      <textarea name="cuadro-texto" id="campo-mensaje" cols="30" rows="10" class="mensaje"></textarea>
+      <article class="btn">
+        <button class="btn-desencriptar" onclick="btnDesencriptar()">Desencriptar</button>
+        <button class="boton-copiar" id="btn-copiar-2">Copiar</button>
+      </article>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+
+</html>
